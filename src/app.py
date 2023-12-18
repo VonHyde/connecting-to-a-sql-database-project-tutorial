@@ -13,6 +13,16 @@ connection_string = f"postgresql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWOR
 engine = create_engine(connection_string).execution_options(autocommit=True)
 engine.connect()
 
+
+#1.5) Drop everything before loading the table in case there was an error before.
+
+with engine.connect() as con:
+    with open("/workspace/connecting-to-a-sql-database-project-tutorial/src/sql/drop.sql") as file:
+        query = text(file.read())
+        con.execute(query)
+
+
+
 # 2) Execute the SQL sentences to create your tables using the SQLAlchemy's execute function
 
 with engine.connect() as con:
