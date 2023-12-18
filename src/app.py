@@ -27,7 +27,10 @@ with engine.connect() as con:
         query = text(file.read())
         con.execute(query)
 
+engine.dispose()
+
 # 4) Use pandas to print one of the tables as dataframes using read_sql function
+
 
 authors = pd.read_sql_query("SELECT * FROM publishers", engine)
 print(authors)
